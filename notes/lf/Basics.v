@@ -1,5 +1,17 @@
 (** * Basics: Functional Programming in Coq *)
 
+(** 
+    Enable Unicode for prettier mathematical display.
+    This import allows Coq to display:
+    - Function types with → instead of ->
+    - Universal quantifiers with ∀ instead of forall  
+    - Other mathematical symbols in their Unicode form
+    
+    Note: This only affects display of types and quantifiers, 
+    not pattern matching arrows (=>) which remain unchanged.
+*)
+Require Import Unicode.Utf8.
+
 (* ################################################################# *)
 (** * Data and Functions *)
 
@@ -50,6 +62,11 @@ Compute (next_weekday (next_weekday saturday)).
 Example test_next_weekday:
   (next_weekday (next_weekday saturday)) = tuesday.
 
+Proof. simpl. reflexivity. Qed.
+
+Example test_next_weekday_v2:
+  (next_weekday (next_weekday (next_weekday sunday)) = wednesday).
+
 (** We can then present a _proof script_ giving evidence for
     the claim: *)
 
@@ -95,6 +112,16 @@ Example test_orb3:  (orb false true)  = true.
 Proof. simpl. reflexivity.  Qed.
 Example test_orb4:  (orb true  true)  = true.
 Proof. simpl. reflexivity.  Qed.
+
+Example test_andb1: (andb false false) = false.
+Proof. simpl. reflexivity. Qed.
+Example test_andb2: (andb false true) = false.
+Proof. simpl. reflexivity. Qed.
+Example test_andb3: (andb true false) = false.
+Proof. simpl. reflexivity. Qed.
+Example test_andb4: (andb true true) = true.
+Proof. simpl. reflexivity. Qed.
+
 
 (** We can define new symbolic notations for existing definitions. *)
 
